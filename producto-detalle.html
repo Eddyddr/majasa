@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cemento Gris - Materiales Jacarandas</title>
+    <link rel="stylesheet" type="text/css" href="slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <style>
+        /* Estilos generales */
+        :root {
+            --primary-color: #062d62; /* Azul Construrama */
+            --secondary-color: #ec6812; /* Naranja de acento */
+            --background-color: #ffffff;
+            --text-color: #333333;
+            --light-gray: #f5f5f5;
+            --border-color: #e0e0e0;
+            --header-height: 80px; /* Nueva altura del header */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--primary-color);
+            background-color: var(--background-color);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+
+        /* Estilos de header - Altura modificada */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 20px;
+            height: var(--header-height); /* Altura fija para el header */
+        }
+
+        .logo img {
+            max-height: 60px;
+        }
+
+        /* Menú de navegación */
+        nav {
+            flex: 1;
+            margin: 0 20px;
+        }
+
+        .menu {
+            display: flex;
+            list-style: none;
+            justify-content: center;
+        }
+
+        .menu li {
+            position: relative;
+            margin: 0 15px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: bold;
+            padding: 10px 5px;
+            display: block;
+            transition: color 0.3s;
+        }
+
+        .menu a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Estilos del contenedor principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* Estilos de botones */
+        .button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .button-small {
+            padding: 8px 15px;
+            font-size: 0.9em;
+        }
+
+        /* Estilos de footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        /* Estilos del menú de usuario y carrito */
+        .user-carrito-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-container, .carrito-container {
+            position: relative;
+            margin-left: 15px;
+        }
+
+        #usuario-icono, #carrito-icono {
+            font-size: 1.5em;
+            color: var(--primary-color);
+            text-decoration: none;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Estilos para los submenús */
+        .submenu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+            padding: 10px;
+            border-radius: 5px;
+            list-style: none; /* Eliminar viñetas del submenú */
+        }
+
+        .submenu-construccion, .submenu-plomeria, .submenu-electricidad, 
+        .submenu-herramienta, .submenu-pinturas {
+            position: relative;
+        }
+
+        .sub-submenu {
+            position: absolute;
+            top: 0;
+            left: 100%;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+            padding: 10px;
+            border-radius: 5px;
+            list-style: none; /* Eliminar viñetas del sub-submenú */
+        }
+
+        .menu-productos:hover .submenu,
+        .submenu-construccion:hover .sub-submenu,
+        .submenu-plomeria:hover .sub-submenu,
+        .submenu-electricidad:hover .sub-submenu,
+        .submenu-herramienta:hover .sub-submenu,
+        .submenu-pinturas:hover .sub-submenu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Login dropdown */
+        .login-dropdown {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 5px;
+            min-width: 250px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .login-dropdown h3 {
+            margin-bottom: 15px;
+            text-align: center;
+            color: var(--primary-color);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+
+        .login-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        /* Estilo para el dropdown del carrito */
+        #carrito-vista-previa {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 5px;
+            min-width: 300px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .carrito-titulo {
+            margin-bottom: 15px;
+            text-align: center;
+            color: var(--primary-color);
+        }
+
+        .carrito-items {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
+
+        .carrito-subtotal, .carrito-total {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .carrito-acciones {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        #carrito-contador {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--secondary-color);
+            color: white;
+            font-size: 0.7em;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Estilos específicos para la página de detalle de producto */
+        .producto-detalle .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        
+        .producto-imagen {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        
+        .producto-imagen img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .producto-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .producto-titulo {
+            color: var(--primary-color);
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .producto-precio {
+            color: var(--primary-color);
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .producto-descripcion {
+            margin-bottom: 30px;
+        }
+        
+        .producto-descripcion h2 {
+            color: var(--primary-color);
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+        
+        .producto-descripcion p {
+            color: var(--primary-color);
+            line-height: 1.7;
+        }
+        
+        .producto-acciones {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .cantidad-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .cantidad-selector label {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .cantidad-selector input {
+            width: 80px;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .agregar-al-carrito {
+            width: 100%;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .producto-envio, .producto-devoluciones {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+        }
+        
+        .producto-envio p, .producto-devoluciones p {
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0;
+        }
+        
+        .producto-envio i, .producto-devoluciones i {
+            color: var(--secondary-color);
+            font-size: 1.2em;
+        }
+        
+        /* Sección de características del producto */
+        .producto-caracteristicas {
+            margin-top: 40px;
+            width: 100%;
+        }
+        
+        .producto-caracteristicas h2 {
+            color: var(--primary-color);
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .caracteristicas-tabla {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        
+        .caracteristicas-tabla tr {
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .caracteristicas-tabla th {
+            color: var(--primary-color);
+            text-align: left;
+            padding: 12px 15px;
+            background-color: var(--light-gray);
+            width: 30%;
+        }
+        
+        .caracteristicas-tabla td {
+            color: var(--primary-color);
+            padding: 12px 15px;
+        }
+        
+        /* Media queries para responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                height: auto;
+                padding: 10px;
+            }
+            
+            .menu {
+                flex-direction: column;
+                width: 100%;
+                align-items: center;
+            }
+            
+            .menu li {
+                margin: 5px 0;
+            }
+            
+            .submenu, .sub-submenu {
+                position: static;
+                width: 100%;
+                box-shadow: none;
+                padding: 0 10px;
+            }
+            
+            .user-carrito-container {
+                margin-top: 15px;
+            }
+            
+            .producto-detalle .container {
+                flex-direction: column;
+            }
+            
+            .producto-imagen, .producto-info {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html">
+                <img src="images/logo.png" alt="MATERIALES JACARANDAS">
+            </a>
+        </div>
+        <nav>
+            <ul class="menu">
+                <li><a href="quienes-somos.html">Quiénes Somos</a></li>
+                <li><a href="facturacion.html">Facturación Electrónica</a></li>
+                <li class="menu-productos">
+                    <a href="#" class="menu-link">Productos</a>
+                    <ul class="submenu">
+                        <li class="submenu-construccion">
+                            <a href="#" class="submenu-link">Material de Construcción</a>
+                            <ul class="sub-submenu">
+                                <li><a href="cementos.html">Cementos</a></li>
+                                <li><a href="pega-azulejos.html">Pega Azulejos</a></li>
+                                <li><a href="morteros.html">Morteros</a></li>
+                                <li><a href="varios-construccion.html">Varios</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu-plomeria">
+                            <a href="#" class="submenu-link">Plomería</a>
+                            <ul class="sub-submenu">
+                                <li><a href="griferia-banos.html">Grifería para Baños</a></li>
+                                <li><a href="griferia-cocina.html">Grifería para Cocina</a></li>
+                                <li><a href="accesorios-plomeria.html">Accesorios</a></li>
+                                <li><a href="tinacos.html">Tinacos</a></li>
+                                <li><a href="valvulas-mangueras.html">Válvulas y Mangueras</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu-electricidad">
+                            <a href="#" class="submenu-link">Electricidad</a>
+                            <ul class="sub-submenu">
+                                <li><a href="cables-alambres.html">Cables y Alambres</a></li>
+                                <li><a href="contactos-apagadores.html">Contactos y Apagadores</a></li>
+                                <li><a href="conexiones-electricas.html">Conexiones y Más</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu-herramienta">
+                            <a href="#" class="submenu-link">Herramienta</a>
+                            <ul class="sub-submenu">
+                                <li><a href="herramienta-manual.html">Herramienta Manual</a></li>
+                                <li><a href="herramienta-electrica.html">Herramienta Eléctrica</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu-pinturas">
+                            <a href="#" class="submenu-link">Pinturas e Impermeabilizantes</a>
+                            <ul class="sub-submenu">
+                                <li><a href="pinturas-base-agua.html">Base Agua</a></li>
+                                <li><a href="pinturas-base-solvente.html">Base Solvente</a></li>
+                                <li><a href="pigmentos.html">Pigmentos para Cementos y Morteros</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="aceros.html">Aceros</a></li>
+                    </ul>
+                </li>
+                <!-- Se eliminó la opción de "Contacto" del menú -->
+            </ul>
+        </nav>
+        <div class="user-carrito-container">
+            <div class="user-container">
+                <a href="#" id="usuario-icono">
+                    <i class="fas fa-user"></i>
+                </a>
+                <div class="login-dropdown" id="login-dropdown">
+                    <h3>Iniciar Sesión</h3>
+                    <form class="login-form" id="login-form">
+                        <div class="form-group">
+                            <label for="username">Usuario</label>
+                            <input type="text" id="username" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Contraseña</label>
+                            <input type="password" id="password" name="password" required>
+                        </div>
+                        <div class="login-actions">
+                            <button type="submit" class="button">Iniciar Sesión</button>
+                            <a href="registro.html" class="button button-small">Registrarse</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="carrito-container">
+                <a href="#" id="carrito-icono">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="carrito-contador">0</span>
+                </a>
+                <div id="carrito-vista-previa">
+                    <h3 class="carrito-titulo">Tu Carrito</h3>
+                    <div class="carrito-items">
+                        <!-- Los items del carrito se cargarán dinámicamente aquí -->
+                    </div>
+                    <div class="carrito-subtotal">
+                        <strong>Subtotal:</strong> <span id="carrito-subtotal-precio">$0.00</span>
+                    </div>
+                    <div class="carrito-total">
+                        <strong>Total:</strong> <span id="carrito-total-precio">$0.00</span>
+                    </div>
+                    <div class="carrito-acciones">
+                        <a href="carrito.html" class="button button-small">Ver Carrito</a>
+                        <a href="pago.html" class="button">Pagar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="producto-detalle">
+        <div class="container">
+            <div class="producto-imagen">
+                <img src="images/tolteca.jpg" alt="Cemento Gris Tolteca">
+            </div>
+            <div class="producto-info">
+                <h1 class="producto-titulo">Cemento Gris Tolteca</h1>
+                <p class="producto-precio">$149.99</p>
+                <div class="producto-descripcion">
+                    <h2>Descripción</h2>
+                    <p>Cemento Portland Compuesto 30R, resistente a los sulfatos. Ideal para construcciones generales como cimientos, castillos, dalas, losas, pisos, y más. Ofrece excelente trabajabilidad, durabilidad y resistencia a la compresión.</p>
+                    <p>El Cemento Tolteca es reconocido por su calidad y resistencia superior, cumpliendo con las normas mexicanas para la construcción. Cada saco de 50 kg rinde aproximadamente para 7 a 8 blocks.</p>
+                </div>
+                <div class="producto-acciones">
+                    <div class="cantidad-selector">
+                        <label for="cantidad">Cantidad:</label>
+                        <input type="number" id="cantidad" name="cantidad" value="1" min="1">
+                    </div>
+                    <button class="button agregar-al-carrito" data-producto-id="001">
+                        <i class="fas fa-shopping-cart"></i> Añadir al Carrito
+                    </button>
+                </div>
+                <div class="producto-envio">
+                    <p><i class="fas fa-truck"></i> Envío disponible a toda la República Mexicana.</p>
+                </div>
+                <div class="producto-devoluciones">
+                    <p><i class="fas fa-undo"></i> Devoluciones fáciles. Consulta nuestra política.</p>
+                </div>
+            </div>
+            
+            <div class="producto-caracteristicas">
+                <h2>Características Técnicas</h2>
+                <table class="caracteristicas-tabla">
+                    <tr>
+                        <th>Contenido por saco</th>
+                        <td>50 kg</td>
+                    </tr>
+                    <tr>
+                        <th>Tipo</th>
+                        <td>Portland Compuesto CPC 30R RS</td>
+                    </tr>
+                    <tr>
+                        <th>Resistencia a 28 días</th>
+                        <td>300 kg/cm²</td>
+                    </tr>
+                    <tr>
+                        <th>Color</th>
+                        <td>Gris</td>
+                    </tr>
+                    <tr>
+                        <th>Aplicaciones</th>
+                        <td>Cimientos, castillos, dalas, losas, pisos, blocks</td>
+                    </tr>
+                    <tr>
+                        <th>Características</th>
+                        <td>Resistente a sulfatos, mayor durabilidad</td>
+                    </tr>
+                    <tr>
+                        <th>Normatividad</th>
+                        <td>Cumple con NMX-C-414-ONNCCE</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Materiales Jacarandas. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="slick/slick.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            // Funcionalidad para mostrar/ocultar el login dropdown
+            $('#usuario-icono').on('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $('#login-dropdown').css('opacity', '1').css('visibility', 'visible');
+                $('#carrito-vista-previa').css('opacity', '0').css('visibility', 'hidden');
+            });
+            
+            // Funcionalidad para mostrar/ocultar el carrito dropdown
+            $('#carrito-icono').on('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $('#carrito-vista-previa').css('opacity', '1').css('visibility', 'visible');
+                $('#login-dropdown').css('opacity', '0').css('visibility', 'hidden');
+            });
+            
+            // Cerrar los dropdowns al hacer clic fuera
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.user-container').length) {
+                    $('#login-dropdown').css('opacity', '0').css('visibility', 'hidden');
+                }
+                if (!$(e.target).closest('.carrito-container').length) {
+                    $('#carrito-vista-previa').css('opacity', '0').css('visibility', 'hidden');
+                }
+            });
+            
+            // Evitar cierre al hacer clic dentro de los dropdowns
+            $('.login-dropdown, #carrito-vista-previa').on('click', function(e) {
+                e.stopPropagation();
+            });
+            
+            // Prevenir envío del formulario (solo para demostración)
+            $('#login-form').on('submit', function(e) {
+                e.preventDefault();
+                alert('Función de inicio de sesión no implementada en esta demostración.');
+            });
+            
+            // Agregar al carrito funcionalidad
+            $('.agregar-al-carrito').on('click', function() {
+                var cantidad = $('#cantidad').val();
+                var productoNombre = $('.producto-titulo').text();
+                var productoPrecio = $('.producto-precio').text();
+                
+                // Simulación de agregar al carrito
+                alert('Producto ' + productoNombre + ' x ' + cantidad + ' agregado al carrito');
+                
+                // Actualizar contador del carrito (simulado)
+                var contador = parseInt($('#carrito-contador').text());
+                $('#carrito-contador').text(contador + parseInt(cantidad));
+            });
+            
+            // En dispositivos móviles, convertir hover en click para submenús
+            if (window.matchMedia('(max-width: 768px)').matches) {
+                $('.menu-link, .submenu-link').on('click', function(e) {
+                    e.preventDefault();
+                    $(this).next('ul').slideToggle();
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

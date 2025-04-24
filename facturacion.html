@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facturación Electrónica - Materiales Jacarandas</title>
+    <link rel="stylesheet" type="text/css" href="slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <style>
+        /* Estilos generales */
+        :root {
+            --primary-color: #062d62; /* Azul Construrama */
+            --secondary-color: #ec6812; /* Naranja de acento */
+            --background-color: #ffffff;
+            --text-color: #333333;
+            --light-gray: #f5f5f5;
+            --border-color: #e0e0e0;
+            --header-height: 80px; /* Nueva altura del header */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--primary-color);
+            background-color: var(--background-color);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+
+        /* Estilos de header - Altura modificada */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 20px;
+            height: var(--header-height); /* Altura fija para el header */
+        }
+
+        .logo img {
+            max-height: 60px;
+        }
+
+        /* Menú de navegación */
+        nav {
+            flex: 1;
+            margin: 0 20px;
+        }
+
+        .menu {
+            display: flex;
+            list-style: none;
+            justify-content: center;
+        }
+
+        .menu li {
+            position: relative;
+            margin: 0 15px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: bold;
+            padding: 10px 5px;
+            display: block;
+            transition: color 0.3s;
+        }
+
+        .menu a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Estilos del contenedor principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* Estilos de botones */
+        .button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .button-small {
+            padding: 8px 15px;
+            font-size: 0.9em;
+        }
+
+        /* Estilos de footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        /* Estilos del menú de usuario y carrito */
+        .user-carrito-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-container, .carrito-container {
+            position: relative;
+            margin-left: 15px;
+        }
+
+        #usuario-icono, #carrito-icono {
+            font-size: 1.5em;
+            color: var(--primary-color);
+            text-decoration: none;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Estilos para los submenús */
+        .submenu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+            padding: 10px;
+            border-radius: 5px;
+            list-style: none; /* Eliminar viñetas del submenú */
+        }
+
+        .submenu-construccion, .submenu-plomeria, .submenu-electricidad, 
+        .submenu-herramienta, .submenu-pinturas {
+            position: relative;
+        }
+
+        .sub-submenu {
+            position: absolute;
+            top: 0;
+            left: 100%;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+            padding: 10px;
+            border-radius: 5px;
+            list-style: none; /* Eliminar viñetas del sub-submenú */
+        }
+
+        .menu-productos:hover .submenu,
+        .submenu-construccion:hover .sub-submenu,
+        .submenu-plomeria:hover .sub-submenu,
+        .submenu-electricidad:hover .sub-submenu,
+        .submenu-herramienta:hover .sub-submenu,
+        .submenu-pinturas:hover .sub-submenu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Login dropdown */
+        .login-dropdown {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 5px;
+            min-width: 250px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .login-dropdown h3 {
+            margin-bottom: 15px;
+            text-align: center;
+            color: var(--primary-color);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .form-group input, 
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--primary-color);
+        }
+
+        .login-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        /* Estilo para el dropdown del carrito */
+        #carrito-vista-previa {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 5px;
+            min-width: 300px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .carrito-titulo {
+            margin-bottom: 15px;
+            text-align: center;
+            color: var(--primary-color);
+        }
+
+        .carrito-items {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
+
+        .carrito-subtotal, .carrito-total {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .carrito-acciones {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        #carrito-contador {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--secondary-color);
+            color: white;
+            font-size: 0.7em;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Estilos específicos para la página de facturación */
+        .facturacion-page {
+            background-color: var(--background-color);
+            padding: 20px 0;
+        }
+        
+        .facturacion-page h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .informacion-importante {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+        
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        
+        .alert-warning {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+        }
+        
+        fieldset {
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        
+        legend {
+            color: var(--primary-color);
+            font-weight: bold;
+            padding: 0 10px;
+        }
+        
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .form-text {
+            display: block;
+            margin-top: 5px;
+            color: var(--primary-color);
+            font-size: 0.85em;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .form-actions .button {
+            flex-grow: 1;
+            margin-right: 15px;
+        }
+        
+        .form-actions .button-small {
+            background-color: #f8f9fa;
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+        }
+        
+        .form-actions .button-small:hover {
+            background-color: #e2e6ea;
+        }
+        
+        /* Media queries para responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                height: auto;
+                padding: 10px;
+            }
+            
+            .menu {
+                flex-direction: column;
+                width: 100%;
+                align-items: center;
+            }
+            
+            .menu li {
+                margin: 5px 0;
+            }
+            
+            .submenu, .sub-submenu {
+                position: static;
+                width: 100%;
+                box-shadow: none;
+                padding: 0 10px;
+            }
+            
+            .user-carrito-container {
+                margin-top: 15px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .form-actions .button {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html">
+                <img src="images/logo.png" alt="MATERIALES JACARANDAS">
+            </a>
+        </div>
+        <nav>
+            <ul class="menu">
+                <li><a href="quienes-somos.html">Quiénes Somos</a></li>
+                <li><a href="facturacion.html">Facturación Electrónica</a></li>
+                <li class="menu-productos">
+                    <a href="#" class="menu-link">Productos</a>
+                    <ul class="submenu">
+                        <li class="submenu-construccion">
+                            <a href="#" class="submenu-link">Material de Construcción</a>
+                            <ul class="sub-submenu">
+                                <li><a href="cementos.html">Cementos</a></li>
+                                <li><a href="pega-azulejos.html">Pega Azulejos</a></li>
+                                <li><a href="morteros.html">Morteros</a></li>
+                                <li><a href="varios-construccion.html">Varios</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu-plomeria">
+                            <a href="#" class="submenu-link">Plomería</a>
+                            <ul class="sub-submenu">
+                                <li><a href="griferia-banos.html">Grifería para Baños</a></li>
+                                <li><a href="griferia-cocina.html">Grifería para Cocina</a></li>
+                                <li><a href="accesorios-plomeria.html">Accesorios</a></li>
+                                <li><a href="tinacos.html">Tinacos</a></li>
+                                <li><a href="valvulas-mangueras.html">Válvulas y Mangueras</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu-electricidad">
+                            <a href="#" class="submenu-link">Electricidad</a>
+                            <ul class="sub-submenu">
+                                <li><a href="cables-alambres.html">Cables y Alambres</a></li>
+                                <li><a href="contactos-apagadores.html">Contactos y Apagadores</a></li>
+                                <li><a href="conexiones-electricas.html">Conexiones y Más</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu-herramienta">
+                            <a href="#" class="submenu-link">Herramienta</a>
+                            <ul class="sub-submenu">
+                                <li><a href="herramienta-manual.html">Herramienta Manual</a></li>
+                                <li><a href="herramienta-electrica.html">Herramienta Eléctrica</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu-pinturas">
+                            <a href="#" class="submenu-link">Pinturas e Impermeabilizantes</a>
+                            <ul class="sub-submenu">
+                                <li><a href="pinturas-base-agua.html">Base Agua</a></li>
+                                <li><a href="pinturas-base-solvente.html">Base Solvente</a></li>
+                                <li><a href="pigmentos.html">Pigmentos para Cementos y Morteros</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="aceros.html">Aceros</a></li>
+                    </ul>
+                </li>
+                <!-- Se eliminó la opción de "Contacto" del menú -->
+            </ul>
+        </nav>
+        <div class="user-carrito-container">
+            <div class="user-container">
+                <a href="#" id="usuario-icono">
+                    <i class="fas fa-user"></i>
+                </a>
+                <div class="login-dropdown" id="login-dropdown">
+                    <h3>Iniciar Sesión</h3>
+                    <form class="login-form" id="login-form">
+                        <div class="form-group">
+                            <label for="username">Usuario</label>
+                            <input type="text" id="username" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Contraseña</label>
+                            <input type="password" id="password" name="password" required>
+                        </div>
+                        <div class="login-actions">
+                            <button type="submit" class="button">Iniciar Sesión</button>
+                            <a href="registro.html" class="button button-small">Registrarse</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="carrito-container">
+                <a href="#" id="carrito-icono">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="carrito-contador">0</span>
+                </a>
+                <div id="carrito-vista-previa">
+                    <h3 class="carrito-titulo">Tu Carrito</h3>
+                    <div class="carrito-items">
+                        <!-- Los items del carrito se cargarán dinámicamente aquí -->
+                    </div>
+                    <div class="carrito-subtotal">
+                        <strong>Subtotal:</strong> <span id="carrito-subtotal-precio">$0.00</span>
+                    </div>
+                    <div class="carrito-total">
+                        <strong>Total:</strong> <span id="carrito-total-precio">$0.00</span>
+                    </div>
+                    <div class="carrito-acciones">
+                        <a href="carrito.html" class="button button-small">Ver Carrito</a>
+                        <a href="pago.html" class="button">Pagar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="facturacion-page">
+        <div class="container">
+            <h1>Solicitud de Factura Electrónica</h1>
+            <p class="informacion-importante">Por favor, completa el siguiente formulario con tus datos fiscales para generar tu factura.</p>
+
+            <div id="mensaje-factura-existente" class="alert alert-warning" style="display: none;">
+                <strong>¡Atención!</strong> El número de pedido que has ingresado ya fue facturado previamente. Si tienes alguna duda, por favor contáctanos.
+            </div>
+
+            <form id="formulario-facturacion">
+                <fieldset>
+                    <legend>Información del Pedido</legend>
+                    <div class="form-group">
+                        <label for="numero-pedido">Número de Pedido (opcional si estás facturando tu compra actual):</label>
+                        <input type="text" id="numero-pedido" name="numero-pedido">
+                        <small class="form-text">Si estás solicitando factura de una compra anterior, ingresa tu número de pedido.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="correo-electronico">Correo Electrónico de la Compra:</label>
+                        <input type="email" id="correo-electronico" name="correo-electronico" required>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Datos Fiscales</legend>
+                    <div class="form-group">
+                        <label for="rfc">RFC (Registro Federal de Contribuyentes):</label>
+                        <input type="text" id="rfc" name="rfc" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="razon-social">Razón Social (Nombre o Denominación Social):</label>
+                        <input type="text" id="razon-social" name="razon-social" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="regimen-fiscal">Régimen Fiscal:</label>
+                        <select id="regimen-fiscal" name="regimen-fiscal" required>
+                            <option value="">Selecciona una opción</option>
+                            <option value="601">601 - General de Ley Personas Morales</option>
+                            <option value="603">603 - Personas Morales con Fines no Lucrativos</option>
+                            <option value="605">605 - Sueldos y Salarios e Ingresos Asimilados a Salarios</option>
+                            <option value="606">606 - Arrendamiento</option>
+                            <option value="607">607 - Régimen de Enajenación o Adquisición de Bienes</option>
+                            <option value="608">608 - Demás ingresos</option>
+                            <option value="609">609 - Consolidación</option>
+                            <option value="610">610 - Residentes en el Extranjero sin Establecimiento Permanente en México</option>
+                            <option value="611">611 - Ingresos por Dividendos (socios y accionistas)</option>
+                            <option value="612">612 - Personas Físicas con Actividades Empresariales y Profesionales</option>
+                            <option value="614">614 - Ingresos por intereses</option>
+                            <option value="616">616 - Sin obligaciones fiscales</option>
+                            <option value="620">620 - Sociedades Cooperativas de Producción que optan por diferir sus ingresos</option>
+                            <option value="621">621 - Incorporación Fiscal</option>
+                            <option value="622">622 - Actividades Agrícolas, Ganaderas, Silvícolas y Pesqueras</option>
+                            <option value="623">623 - Opcional para Grupos de Sociedades</option>
+                            <option value="624">624 - Coordinados</option>
+                            <option value="625">625 - Régimen de las Actividades Empresariales con ingresos a través de Plataformas Tecnológicas</option>
+                            <option value="626">626 - Régimen Simplificado de Confianza</option>
+                        </select>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Domicilio Fiscal</legend>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="calle">Calle:</label>
+                            <input type="text" id="calle" name="calle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="numero-exterior">Número Exterior:</label>
+                            <input type="text" id="numero-exterior" name="numero-exterior" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="numero-interior">Número Interior (opcional):</label>
+                            <input type="text" id="numero-interior" name="numero-interior">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="colonia">Colonia:</label>
+                            <input type="text" id="colonia" name="colonia" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="codigo-postal">Código Postal:</label>
+                            <input type="text" id="codigo-postal" name="codigo-postal" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="municipio">Municipio/Alcaldía:</label>
+                            <input type="text" id="municipio" name="municipio" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="estado">Estado:</label>
+                            <select id="estado" name="estado" required>
+                                <option value="">Selecciona un estado</option>
+                                <option value="AGS">Aguascalientes</option>
+                                <option value="BC">Baja California</option>
+                                <option value="BCS">Baja California Sur</option>
+                                <option value="CAMP">Campeche</option>
+                                <option value="CHIS">Chiapas</option>
+                                <option value="CHIH">Chihuahua</option>
+                                <option value="CDMX">Ciudad de México</option>
+                                <option value="COAH">Coahuila</option>
+                                <option value="COL">Colima</option>
+                                <option value="DGO">Durango</option>
+                                <option value="GTO">Guanajuato</option>
+                                <option value="GRO">Guerrero</option>
+                                <option value="HGO">Hidalgo</option>
+                                <option value="JAL">Jalisco</option>
+                                <option value="MEX">Estado de México</option>
+                                <option value="MICH">Michoacán</option>
+                                <option value="MOR">Morelos</option>
+                                <option value="NAY">Nayarit</option>
+                                <option value="NL">Nuevo León</option>
+                                <option value="OAX">Oaxaca</option>
+                                <option value="PUE">Puebla</option>
+                                <option value="QRO">Querétaro</option>
+                                <option value="QROO">Quintana Roo</option>
+                                <option value="SLP">San Luis Potosí</option>
+                                <option value="SIN">Sinaloa</option>
+                                <option value="SON">Sonora</option>
+                                <option value="TAB">Tabasco</option>
+                                <option value="TAMPS">Tamaulipas</option>
+                                <option value="TLAX">Tlaxcala</option>
+                                <option value="VER">Veracruz</option>
+                                <option value="YUC">Yucatán</option>
+                                <option value="ZAC">Zacatecas</option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Información de Contacto</legend>
+                    <div class="form-group">
+                        <label for="email-facturacion">Correo Electrónico para recibir la factura:</label>
+                        <input type="email" id="email-facturacion" name="email-facturacion" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono-contacto">Teléfono de Contacto:</label>
+                        <input type="tel" id="telefono-contacto" name="telefono-contacto" required>
+                    </div>
+                </fieldset>
+
+                <div class="form-actions">
+                    <button type="submit" class="button">Solicitar Factura</button>
+                    <button type="reset" class="button-small">Limpiar Formulario</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Materiales Jacarandas. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="slick/slick.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            // Funcionalidad para mostrar/ocultar el login dropdown
+            $('#usuario-icono').on('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $('#login-dropdown').css('opacity', '1').css('visibility', 'visible');
+                $('#carrito-vista-previa').css('opacity', '0').css('visibility', 'hidden');
+            });
+            
+            // Funcionalidad para mostrar/ocultar el carrito dropdown
+            $('#carrito-icono').on('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $('#carrito-vista-previa').css('opacity', '1').css('visibility', 'visible');
+                $('#login-dropdown').css('opacity', '0').css('visibility', 'hidden');
+            });
+            
+            // Cerrar los dropdowns al hacer clic fuera
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.user-container').length) {
+                    $('#login-dropdown').css('opacity', '0').css('visibility', 'hidden');
+                }
+                if (!$(e.target).closest('.carrito-container').length) {
+                    $('#carrito-vista-previa').css('opacity', '0').css('visibility', 'hidden');
+                }
+            });
+            
+            // Evitar cierre al hacer clic dentro de los dropdowns
+            $('.login-dropdown, #carrito-vista-previa').on('click', function(e) {
+                e.stopPropagation();
+            });
+            
+            // Prevenir envío del formulario de login (solo para demostración)
+            $('#login-form').on('submit', function(e) {
+                e.preventDefault();
+                alert('Función de inicio de sesión no implementada en esta demostración.');
+            });
+            
+            // Validación y envío del formulario de facturación
+            $('#formulario-facturacion').on('submit', function(e) {
+                e.preventDefault();
+                
+                // Validar RFC (longitud básica)
+                var rfc = $('#rfc').val();
+                if ((rfc.length != 13 && rfc.length != 12)) {
+                    alert('Por favor, introduce un RFC válido (12 caracteres para personas morales o 13 para personas físicas).');
+                    return false;
+                }
+                
+                // Validar código postal (5 dígitos)
+                var cp = $('#codigo-postal').val();
+                if (!/^\d{5}$/.test(cp)) {
+                    alert('Por favor, introduce un código postal válido de 5 dígitos.');
+                    return false;
+                }
+                
+                // Simulación de verificación de pedido ya facturado (solo para demostración)
+                var numeroPedido = $('#numero-pedido').val();
+                if (numeroPedido === '12345') {
+                    $('#mensaje-factura-existente').show();
+                    return false;
+                }
+                
+                // Simulación de envío de formulario
+                alert('Solicitud de factura enviada correctamente. Recibirás tu factura en el correo proporcionado en breve.');
+                
+                // Aquí iría la lógica real de envío del formulario
+                // this.submit();
+            });
+            
+            // Validación de campos en tiempo real
+            $('#codigo-postal').on('input', function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+            
+            $('#telefono-contacto').on('input', function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+            
+            // En dispositivos móviles, convertir hover en click para submenús
+            if (window.matchMedia('(max-width: 768px)').matches) {
+                $('.menu-link, .submenu-link').on('click', function(e) {
+                    e.preventDefault();
+                    $(this).next('ul').slideToggle();
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
